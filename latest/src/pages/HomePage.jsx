@@ -37,9 +37,13 @@ const HomePage = () => {
     setIsFormOpen(true);
   };
 
+  const ongoing = getOngoingTasks();
+  const scheduled = getScheduledTasks();
+  const completed = getCompletedTasks();
+
   const renderTaskList = (tasks, emptyMessage) => {
     if (!tasks || tasks.length === 0) {
-      return <div style={{ color: "gray" }}>{emptyMessage}</div>;
+      return <div className="empty-state">{emptyMessage}</div>;
     }
     return tasks.map((task) => (
       <TaskItem
@@ -54,31 +58,47 @@ const HomePage = () => {
   };
 
   return (
-    <div style={{ padding: "2rem" }}>
-      <header style={{ display: "flex", justifyContent: "space-between" }}>
-        <div>
+    <main className="workspace">
+      <header className="workspace-header">
+        <div className="workspace-title">
           <h1>Your Workspace</h1>
           <p>Manage your day with elegance and efficiency.</p>
         </div>
-        <button onClick={openNewTaskForm}>
-          <Plus size={20} /> Add New Task
+        <button className="btn-add" onClick={openNewTaskForm}>
+          <Plus size={17} />
+          <span>New Task</span>
         </button>
       </header>
 
-      <div style={{ display: "flex", gap: "2rem", marginTop: "2rem" }}>
-        <section>
-          <h2>Ongoing</h2>
-          {renderTaskList(getOngoingTasks(), "No ongoing tasks.")}
+      <div className="columns">
+        <section className="column">
+          <div className="column-header">
+            <span className="column-label">Ongoing</span>
+            <span className="column-count">{ongoing.length}</span>
+          </div>
+          <div className="task-list">
+            {renderTaskList(ongoing, "No ongoing tasks.")}
+          </div>
         </section>
 
-        <section>
-          <h2>Scheduled</h2>
-          {renderTaskList(getScheduledTasks(), "No scheduled tasks.")}
+        <section className="column">
+          <div className="column-header">
+            <span className="column-label">Scheduled</span>
+            <span className="column-count">{scheduled.length}</span>
+          </div>
+          <div className="task-list">
+            {renderTaskList(scheduled, "No scheduled tasks.")}
+          </div>
         </section>
 
-        <section>
-          <h2>Completed</h2>
-          {renderTaskList(getCompletedTasks(), "No completed tasks yet.")}
+        <section className="column">
+          <div className="column-header">
+            <span className="column-label">Completed</span>
+            <span className="column-count">{completed.length}</span>
+          </div>
+          <div className="task-list">
+            {renderTaskList(completed, "No completed tasks yet.")}
+          </div>
         </section>
       </div>
 
@@ -88,7 +108,7 @@ const HomePage = () => {
         onSubmit={handleFormSubmit}
         initialData={editingTask}
       />
-    </div>
+    </main>
   );
 };
 

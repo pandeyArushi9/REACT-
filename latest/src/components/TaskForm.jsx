@@ -27,17 +27,17 @@ const TaskForm = ({ isOpen, onClose, onSubmit, initialData = null }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!title.trim()) return;
-
     onSubmit({ title, description, dueDate });
     onClose();
   };
 
   return (
     <div className="modal-overlay">
-      <div className="modal-content glass-panel animate-slide-up">
+      <div className="modal-content">
         <button className="modal-close" onClick={onClose}>
-          <X size={24} />
+          <X size={18} />
         </button>
+
         <h2 className="modal-title">
           {initialData ? "Edit Task" : "New Task"}
         </h2>
@@ -58,18 +58,18 @@ const TaskForm = ({ isOpen, onClose, onSubmit, initialData = null }) => {
           </div>
 
           <div className="form-group">
-            <label htmlFor="description">Description (Optional)</label>
+            <label htmlFor="description">Description</label>
             <textarea
               id="description"
               className="input-field"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              placeholder="Add more details..."
+              placeholder="Add more details... (optional)"
             />
           </div>
 
           <div className="form-group">
-            <label htmlFor="dueDate">Due Date (Optional)</label>
+            <label htmlFor="dueDate">Due Date</label>
             <input
               type="date"
               id="dueDate"
