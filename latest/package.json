@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "homepage": "https://pandeyArushi9.github.io/REACT",
+  "predeploy": "npm run build",
   "scripts": {
     "deploy": "gh-pages -d dist",
     "dev": "vite",
